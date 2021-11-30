@@ -1,0 +1,45 @@
+Arguments: 
+  C:\Program Files (x86)\nodejs\node.exe C:\Users\heaty\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\heaty\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\heaty\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\nodejs;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn;C:\Program Files\Azure Data Studio\bin;C:\Users\heaty\AppData\Local\Microsoft\WindowsApps;C:\Users\heaty\AppData\Roaming\npm;C:\Users\heaty\AppData\Local\Programs\Azure Data Studio\bin;C:\Users\heaty\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\heaty\.dotnet\tools;C:\Program Files\Azure Data Studio\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.13.0
+
+Platform: 
+  win32 ia32
+
+Trace: 
+  SyntaxError: H:\micro-chat\package.json: Unexpected token } in JSON at position 424
+      at JSON.parse (<anonymous>)
+      at C:\Users\heaty\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\heaty\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\heaty\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+          "name": "micro-chat",
+          "version": "1.0.0",
+          "main": "index.js",
+          "repository": "https://github.com/Heaty566/micro-chat.git",
+          "author": "heaty566 <heaty566@gmail.com>",
+          "license": "MIT",
+          "postinstall": "npx husky install",
+          "scripts": {
+                  "format": "prettier --write ."
+          },
+          "devDependencies": {
+              "husky": "^7.0.0",
+          }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

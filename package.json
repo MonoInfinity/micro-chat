@@ -1,0 +1,18 @@
+{
+      "name": "micro-chat",
+      "version": "1.0.0",
+      "main": "index.js",
+      "repository": "https://github.com/Heaty566/micro-chat.git",
+      "author": "heaty566 <heaty566@gmail.com>",
+      "license": "MIT",
+      "postinstall": "npx husky install",
+      "scripts": {
+            "format": "prettier --write .",
+            "prepare": "husky install"
+      },
+      "devDependencies": {
+            "husky": "^7.0.0",
+            "prettier": "^2.5.0"
+      },
+      "dependencies": {}
+}

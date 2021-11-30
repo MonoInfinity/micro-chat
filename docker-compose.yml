@@ -1,0 +1,80 @@
+version: '3'
+services:
+      redis:
+            container_name: redis
+            image: 'redis:alpine'
+            ports:
+                  - 6379:6379
+            volumes:
+                  - ./data/redis_data:/data
+      db:
+            image: postgres
+            container_name: postgres-db
+            restart: always
+            environment:
+                  POSTGRES_PASSWORD: hello123
+            ports:
+                  - 5432:5432
+            volumes:
+                  - ./data/postgres-data:/var/lib/postgresql/data
+      elasticsearch:
+            image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+            container_name: elasticsearch
+            environment:
+                  - node.name=elasticsearch
+                  - cluster.name=datasearch
+                  - bootstrap.memory_lock=true
+                  - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+                  - cluster.initial_master_nodes=elasticsearch
+            ulimits:
+                  memlock:
+                        soft: -1
+                        hard: -1
+            ports:
+                  - 9200:9200
+            volumes:
+                  - ./data/esdata:/usr/share/elasticsearch/data
+      zookeeper:
+            image: confluentinc/cp-zookeeper:latest
+            environment:
+                  ZOOKEEPER_CLIENT_PORT: 2181
+                  ZOOKEEPER_TICK_TIME: 2000
+            ports:
+                  - 2181:2181
+            
+      kafka:
+            image: confluentinc/cp-kafka:latest
+            depends_on:
+                  - zookeeper
+            ports:
+                  - 29092:29092
+            environment:
+                  KAFKA_BROKER_ID: 1
+                  KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+                  KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+                  KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+                  KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+                  KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      sv-supporter:
+            image: heaty566/server-supporter:1.1.0
+            container_name: sv-supporter
+            ports:
+                  - 6700:6700
+            env_file:
+                  - './data/config/sv-suppoter.env'
+            volumes:
+                  - ./template:/app/template
+      client:
+            build: ./client
+            image: heaty566/micro-chat-client:latest
+            container_name: micro-client
+            ports:
+                  - 3000:3000
+      server:
+            build: ./server
+            image: heaty566/micro-chat-server:latest
+            container_name: micro-server
+            ports:
+                  - 4000:4000
+            env_file:
+                  - ./data/config/server.env
