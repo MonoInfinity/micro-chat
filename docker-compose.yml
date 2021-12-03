@@ -12,11 +12,15 @@ services:
             container_name: postgres-db
             restart: always
             environment:
-                  POSTGRES_PASSWORD: hello123
+                  - POSTGRES_USER=myuser
+                  - POSTGRES_PASSWORD=hello123
+                  - POSTGRES_DB=microchat
             ports:
                   - 5432:5432
             volumes:
                   - ./data/postgres-data:/var/lib/postgresql/data
+
+
       # elasticsearch:
       #       image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
       #       container_name: elasticsearch
@@ -54,15 +58,15 @@ services:
       #             KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       #             KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       #             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      sv-supporter:
-            image: heaty566/server-supporter:1.1.0
-            container_name: sv-supporter
-            ports:
-                  - 6700:6700
-            env_file:
-                  - './data/config/sv-suppoter.env'
-            volumes:
-                  - ./template:/app/template
+      # sv-supporter:
+      #       image: heaty566/server-supporter:1.1.0
+      #       container_name: sv-supporter
+      #       ports:
+      #             - 6700:6700
+      #       env_file:
+      #             - './data/config/sv-suppoter.env'
+      #       volumes:
+      #             - ./template:/app/template
       # client:
       #       build: ./client
       #       image: heaty566/micro-chat-client:latest
