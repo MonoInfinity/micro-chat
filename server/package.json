@@ -25,6 +25,11 @@
     "@nestjs/config": "^1.1.5",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "helmet": "^4.6.0",
+    "mono-utils-core": "^0.2.3",
+    "morgan": "^1.10.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
