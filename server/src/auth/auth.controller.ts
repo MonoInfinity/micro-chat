@@ -10,7 +10,10 @@ import { config } from '../config';
 
 @Controller('auth')
 export class AuthController {
-      constructor(private readonly authService: AuthService) { }
+      private readonly CLIENT_URL: string;
+      constructor(private readonly authService: AuthService) {
+            this.CLIENT_URL = process.env.CLIENT_URL || '';
+      }
 
       //---------------------------------- 3rd authentication -----------------------------------------------------------
       @Get('/google')
@@ -25,6 +28,6 @@ export class AuthController {
             const authToken = await this.authService.createAuthToken(req.user);
             return res
                   .cookie('auth-token', authToken, { maxAge: config.authController.googleUserCookieTime })
-                  .redirect(process.env.CLIENT_URL || '');
+                  .redirect(this.CLIENT_URL);
       }
 }
