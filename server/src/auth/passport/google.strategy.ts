@@ -14,18 +14,18 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             super({
                   clientID: process.env.GOOGLE_CLIENT_ID || '',
                   clientSecret: process.env.GOOGLE_SECRET || '',
-                  callbackURL: 'http://localhost:4000/api/auth/google/callback',
+                  callbackURL: `${process.env.SERVER_URL || ''}/api/auth/google/callback`,
                   scope: ['email', 'profile'],
             });
       }
 
       async validate(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
             try {
-                  let user = await this.userService.findOneUserByField('google', profile.id);
+                  let user = await this.userService.findOneUserByField('googleId', profile.id);
 
                   if (!user) {
                         user = new User();
-                        user.google = profile.id;
+                        user.googleId = profile.id;
                         user.name = profile.displayName;
                         user.email = profile._json.email;
                         user = await this.userService.save(user);
