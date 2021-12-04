@@ -16,7 +16,6 @@ export class UserGuard implements CanActivate {
             const { req, res } = GqlExecutionContext.create(context).getContext<{ req: Request; res: Response }>();
 
             const authToken = req.cookies['auth-token'] || '';
-
             if (!authToken) throw apiResponse.sendError(401, {});
 
             const user = await this.authService.verifyToken<User>(authToken);

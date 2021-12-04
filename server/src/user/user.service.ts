@@ -9,6 +9,7 @@ export class UserService {
       async findOneUserByField(field: keyof User, value: any) {
             return await this.userRepository.findOneUserByField(field, value);
       }
+
       async save(input: User): Promise<User> {
             return await this.userRepository.save(input);
       }

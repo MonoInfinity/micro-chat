@@ -15,7 +15,7 @@ export function router(app: INestApplication) {
       app.setGlobalPrefix('/api');
       app.use(cookieParser());
       app.enableCors({ origin: serverServiceUrl.split(','), credentials: true });
-      app.use(helmet());
+      app.use(helmet({ contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false }));
       app.use(compression());
       app.use(
             morgan('dev', {
