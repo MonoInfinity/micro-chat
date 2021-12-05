@@ -4306,10 +4306,10 @@ moment@^2.29.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
-mono-utils-core@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/mono-utils-core/-/mono-utils-core-0.3.1.tgz#5e08b03a3ca04d1a05a47f02a6f7e726ee9c16ee"
-  integrity sha512-PMtPvHjbxUhy08nsg7erQuw1aCXKiS+/gO9Sc1S0WaiZ4BigocqQAhUjv4mXMBzwO89TyA8Vs23YWbxboHgFWA==
+mono-utils-core@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/mono-utils-core/-/mono-utils-core-0.4.0.tgz#e39eda94ec4ad151d8d35378b44fb2cc3bc978cc"
+  integrity sha512-LXu6FlwAXmzPB/0+Rj7PUh5t35J8nv+9S9G0EaqfbFaeEl7yIwxE3KJCBt5beP3ZdixtmbzSG0JPsGVibLd7ag==
   dependencies:
     bluebird "^3.7.2"
     colors "^1.4.0"

@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Context, Resolver, Query } from '@nestjs/graphql';
+import { Context, Resolver, Query, Args } from '@nestjs/graphql';
 import { Request } from 'express';
 import { UserGuard } from '../auth/auth.guard';
 import { UserSchema } from './entities/user.schema';
@@ -20,5 +20,20 @@ export class UserResolver {
             email: user.email,
             id: user.id,
         };
+    }
+
+    @UseGuards(UserGuard)
+    @Query(() => [UserSchema])
+    async getAllUsers(@Args('first') first: number): Promise<UserSchema[]> {
+        const users = await this.userService.getAllUser(0, first);
+
+        return users.map((user) => {
+            return {
+                name: user.name,
+                createDate: user.createDate,
+                email: user.email,
+                id: user.id,
+            };
+        });
     }
 }
