@@ -25,6 +25,10 @@ async function bootstrap() {
             JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || '',
             CLIENT_URL: process.env.CLIENT_URL || '',
             SERVER_URL: process.env.SERVER_URL || '',
+            //redis
+            REDIS_PORT: process.env.REDIS_PORT || '',
+            REDIS_DB_NUMBER: process.env.REDIS_DB_NUMBER || '',
+            REDIS_HOST: process.env.REDIS_HOST || '',
             //app
             PORT: process.env.PORT || '',
             NODE_ENV: process.env.NODE_ENV || '',
