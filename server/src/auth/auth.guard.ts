@@ -5,27 +5,30 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 
 //---- Common
-import { apiResponse } from '../app/interface/apiResponse';
+import { apiResponse } from '../core/interface/apiResponse';
 import User from 'src/user/entities/user.entity';
+import { StatusCodes } from 'http-status-codes';
 
 @Injectable()
 export class UserGuard implements CanActivate {
-      constructor(private authService: AuthService) {}
+    private readonly AUTH_TOKEN_STRING = 'auth-token';
 
-      async canActivate(context: ExecutionContext) {
-            const { req, res } = GqlExecutionContext.create(context).getContext<{ req: Request; res: Response }>();
+    constructor(private authService: AuthService) {}
 
-            const authToken = req.cookies['auth-token'] || '';
-            if (!authToken) throw apiResponse.sendError(401, {});
+    async canActivate(context: ExecutionContext) {
+        const { req, res } = GqlExecutionContext.create(context).getContext<{ req: Request; res: Response }>();
 
-            const user = await this.authService.verifyToken<User>(authToken);
-            if (!user) {
-                  res.cookie('re-token', '', { maxAge: -999 });
-                  throw apiResponse.sendError(403, {});
-            }
+        const authToken = req.cookies[this.AUTH_TOKEN_STRING] || '';
+        if (!authToken) throw apiResponse.sendError(StatusCodes.UNAUTHORIZED, { errorMessage: 'Login failed' });
 
-            req.user = user;
+        const user = await this.authService.verifyToken<User>(authToken);
+        if (!user) {
+            res.cookie(this.AUTH_TOKEN_STRING, '', { maxAge: -999 });
+            throw apiResponse.sendError(StatusCodes.UNAUTHORIZED, {});
+        }
 
-            return true;
-      }
+        req.user = user;
+
+        return true;
+    }
 }

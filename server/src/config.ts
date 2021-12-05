@@ -9,20 +9,20 @@
  */
 
 export const config: Config = {
-      authController: {
-            // /google/callback
-            googleUserCookieTime: 1000 * 60 * 60 * 24 * 30,
-      },
+    authController: {
+        // /google/callback
+        googleUserCookieTime: 1000 * 60 * 60 * 24 * 30,
+    },
 };
 
 interface Config {
-      authController: AuthControllerConfig;
+    authController: AuthControllerConfig;
 }
 
 interface AuthControllerConfig {
-      /**
-       *@description time of cookie when users login with google
-       *@description  milliseconds 1h = 60 * 60 * 1000
-       */
-      readonly googleUserCookieTime: number;
+    /**
+     *@description time of cookie when users login with google
+     *@description  milliseconds 1h = 60 * 60 * 1000
+     */
+    readonly googleUserCookieTime: number;
 }

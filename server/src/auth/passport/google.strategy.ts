@@ -10,29 +10,29 @@ import { User } from '../../user/entities/user.entity';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-      constructor(private userService: UserService) {
-            super({
-                  clientID: process.env.GOOGLE_CLIENT_ID || '',
-                  clientSecret: process.env.GOOGLE_SECRET || '',
-                  callbackURL: `${process.env.SERVER_URL || ''}/api/auth/google/callback`,
-                  scope: ['email', 'profile'],
-            });
-      }
+    constructor(private userService: UserService) {
+        super({
+            clientID: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_SECRET || '',
+            callbackURL: `${(process.env.SERVER_URL || '').split(',')[0] || ''}/api/auth/google/callback`,
+            scope: ['email', 'profile'],
+        });
+    }
 
-      async validate(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
-            try {
-                  let user = await this.userService.findOneUserByField('googleId', profile.id);
+    async validate(accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
+        try {
+            let user = await this.userService.findOneUserByField('googleId', profile.id);
 
-                  if (!user) {
-                        user = new User();
-                        user.googleId = profile.id;
-                        user.name = profile.displayName;
-                        user.email = profile._json.email;
-                        user = await this.userService.save(user);
-                  }
-                  done(null, user);
-            } catch (err) {
-                  done(err, null);
+            if (!user) {
+                user = new User();
+                user.googleId = profile.id;
+                user.name = profile.displayName;
+                user.email = profile._json.email;
+                user = await this.userService.save(user);
             }
-      }
+            done(null, user);
+        } catch (err) {
+            done(err, null);
+        }
+    }
 }

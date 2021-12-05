@@ -6,18 +6,18 @@ import { AuthController } from './auth.controller';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-      imports: [forwardRef(() => UserModule)],
-      controllers: [AuthController],
-      providers: [
-            AuthService,
-            GoogleStrategy,
-            {
-                  provide: JwtService,
-                  useFactory: () => {
-                        return new JwtService({ secret: process.env.JWT_SECRET_KEY || '' });
-                  },
+    imports: [forwardRef(() => UserModule)],
+    controllers: [AuthController],
+    providers: [
+        AuthService,
+        GoogleStrategy,
+        {
+            provide: JwtService,
+            useFactory: () => {
+                return new JwtService({ secret: process.env.JWT_SECRET_KEY || '' });
             },
-      ],
-      exports: [AuthService],
+        },
+    ],
+    exports: [AuthService],
 })
 export class AuthModule {}

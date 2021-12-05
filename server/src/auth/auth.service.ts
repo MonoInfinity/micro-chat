@@ -6,30 +6,30 @@ import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
-      constructor(private readonly jwtService: JwtService) {}
+    constructor(private readonly jwtService: JwtService) {}
 
-      //-------------------------------Token Service --------------------------------------
+    //-------------------------------Token Service --------------------------------------
 
-      createAuthToken(user: User) {
-            const encryptUser = this.encryptToken(user);
-            return encryptUser;
-      }
+    createAuthToken(user: User) {
+        const encryptUser = this.encryptToken(user);
+        return encryptUser;
+    }
 
-      //--------------------------------Encrypt Decrypt Service -------------------------------
+    //--------------------------------Encrypt Decrypt Service -------------------------------
 
-      encryptToken(tokenData: Record<any, any>) {
-            try {
-                  return this.jwtService.sign(JSON.stringify(tokenData));
-            } catch (err) {
-                  return null;
-            }
-      }
+    encryptToken(tokenData: Record<any, any>) {
+        try {
+            return this.jwtService.sign(JSON.stringify(tokenData));
+        } catch (err) {
+            return null;
+        }
+    }
 
-      verifyToken<T>(tokenData: string) {
-            try {
-                  return this.jwtService.verify<any>(tokenData) as T;
-            } catch (err) {
-                  return null;
-            }
-      }
+    verifyToken<T>(tokenData: string) {
+        try {
+            return this.jwtService.verify<any>(tokenData) as T;
+        } catch (err) {
+            return null;
+        }
+    }
 }

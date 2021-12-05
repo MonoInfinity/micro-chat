@@ -11,8 +11,7 @@
             "prepare": "husky install"
       },
       "devDependencies": {
-            "husky": "^7.0.0",
-            "prettier": "^2.5.0"
+            "husky": "^7.0.0"
       },
       "dependencies": {}
 }
