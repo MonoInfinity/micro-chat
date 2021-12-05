@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { monoEnum } from 'mono-utils-core';
+import { RedisModule } from './core/provider/redis/redis.module';
 
 const Config = ConfigModule.forRoot({
     isGlobal: true,
@@ -55,6 +56,7 @@ const DBConfig = TypeOrmModule.forRoot({
         }),
         AuthModule,
         UserModule,
+        RedisModule,
     ],
     controllers: [],
     providers: [],
