@@ -9,9 +9,6 @@ const { getJoiSchemas } = ValidatorService.joiSchemaGenerator<User>(userJoiSchem
 @InputType({ description: 'update user information' })
 export class UpdateUserDTO {
     @Field()
-    id: string;
-
-    @Field()
     name: string;
 
     @Field()
