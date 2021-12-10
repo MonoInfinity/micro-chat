@@ -26,8 +26,8 @@ export class UserResolver {
 
     @UseGuards(UserGuard)
     @Query(() => [UserSchema])
-    async getAllUsers(@Args('first') first: number): Promise<UserSchema[]> {
-        const users = await this.userService.getAllUser(0, first);
+    async getUsers(@Args('first') first: number): Promise<UserSchema[]> {
+        const users = await this.userService.getUsers(0, first);
 
         return users.map((user) => {
             return {
