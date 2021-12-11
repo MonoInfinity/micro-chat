@@ -19,6 +19,9 @@ export class User {
 
     @Column({ default: '' })
     email: string;
+
+    @Column({ default: '' })
+    avatarUrl: string;
 }
 
 export default User;

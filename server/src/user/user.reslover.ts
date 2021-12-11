@@ -6,6 +6,7 @@ import { UserSchema } from './entities/user.schema';
 import { UserService } from './user.service';
 import { JoiValidatorPipe } from '../core/utils/validator/validator.pipe';
 import { vUpdateUserDTO, UpdateUserDTO } from './dto/UpdateUserDTO';
+import { UpdateAvatarUserDTO, vUpdateAvatarUserDTO } from './dto/updateAvatarUserDTO';
 
 @Resolver()
 export class UserResolver {
@@ -51,6 +52,20 @@ export class UserResolver {
         //checking hash password
         user.name = body.name;
         user.email = body.email;
+
+        await this.userService.save(user);
+        return true;
+    }
+
+    @Mutation(() => Boolean)
+    @UseGuards(UserGuard)
+    async updateAvatar(
+        @Context('req') req: Request,
+        @Context('res') res: Response,
+        @Args('input', new JoiValidatorPipe(vUpdateAvatarUserDTO)) body: UpdateAvatarUserDTO
+    ) {
+        const user = await this.userService.findOneUserByField('id', req.user.id);
+        user.avatarUrl = body.avatarUrl;
 
         await this.userService.save(user);
         return true;

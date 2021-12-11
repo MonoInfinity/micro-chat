@@ -9,5 +9,8 @@ export function userJoiSchema(field: keyof User) {
 
         case 'email':
             return Joi.string().min(5).max(255).email();
+
+        case 'avatarUrl':
+            return Joi.string();
     }
 }
