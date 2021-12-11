@@ -11,7 +11,7 @@ export class UserService {
         return await this.userRepository.findOneUserByField(field, value);
     }
 
-    async getAllUser(pageIndex: number, pageSize: number) {
+    async getUsers(pageIndex: number, pageSize: number) {
         const query = await this.userRepository
             .createQueryBuilder()
             .select(monoString.getSelectQueryString<User>(['id', 'name', 'email', 'createDate']))
