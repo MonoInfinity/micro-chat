@@ -4,6 +4,7 @@ import { UserModule } from '../user/user.module';
 import { GoogleStrategy } from './passport/google.strategy';
 import { AuthController } from './auth.controller';
 import { JwtService } from '@nestjs/jwt';
+import { config } from '../core/config';
 
 @Module({
     imports: [forwardRef(() => UserModule)],
@@ -14,7 +15,7 @@ import { JwtService } from '@nestjs/jwt';
         {
             provide: JwtService,
             useFactory: () => {
-                return new JwtService({ secret: process.env.JWT_SECRET_KEY || '' });
+                return new JwtService({ secret: config.JWT_SECRET_KEY });
             },
         },
     ],

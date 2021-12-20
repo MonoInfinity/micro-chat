@@ -7,14 +7,15 @@ import { UserService } from '../../user/user.service';
 
 //---- Entity
 import { User } from '../../user/entities/user.entity';
+import { config } from 'src/core/config';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     constructor(private userService: UserService) {
         super({
-            clientID: process.env.GOOGLE_CLIENT_ID || '',
-            clientSecret: process.env.GOOGLE_SECRET || '',
-            callbackURL: `${(process.env.SERVER_URL || '').split(',')[0] || ''}/api/auth/google/callback`,
+            clientID: config.GOOGLE_CLIENT_ID,
+            clientSecret: config.GOOGLE_SECRET,
+            callbackURL: `${config.GOOGLE_CLIENT_REDIRECT_URL}/api/auth/google/callback`,
             scope: ['email', 'profile'],
         });
     }

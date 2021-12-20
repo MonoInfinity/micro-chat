@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { createClient } from 'redis';
+import { config } from 'src/core/config';
 
 //---- Service
 import { RedisService } from './redis.service';
@@ -12,9 +13,8 @@ import { RedisService } from './redis.service';
         {
             provide: 'RedisClient',
             useFactory: () => {
-                const redisPort = Number(process.env.REDIS_PORT) || 6379;
-                const redis = createClient({ port: redisPort, host: process.env.REDIS_HOST || '' });
-                redis.select(process.env.REDIS_DB_NUMBER || 1);
+                const redis = createClient({ port: config.REDIS_PORT, host: config.REDIS_HOST });
+                redis.select(config.REDIS_DB_NUMBER);
                 return redis;
             },
         },

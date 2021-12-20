@@ -6,14 +6,12 @@ import { Response, Request } from 'express';
 
 import { AuthService } from './auth.service';
 
-import { config } from '../config';
+import { constant } from '../core/constant';
+import { config } from 'src/core/config';
 
 @Controller('auth')
 export class AuthController {
-    private readonly CLIENT_URL: string[];
-    constructor(private readonly authService: AuthService) {
-        this.CLIENT_URL = (process.env.CLIENT_URL || '').split(',');
-    }
+    constructor(private readonly authService: AuthService) {}
 
     //---------------------------------- 3rd authentication -----------------------------------------------------------
     @Get('/google')
@@ -27,7 +25,7 @@ export class AuthController {
     async cGoogleAuthRedirect(@Req() req: Request, @Res() res: Response) {
         const authToken = await this.authService.createAuthToken(req.user);
         return res
-            .cookie('auth-token', authToken, { maxAge: config.authController.googleUserCookieTime })
-            .redirect(this.CLIENT_URL[0] || '');
+            .cookie('auth-token', authToken, { maxAge: constant.authController.googleUserCookieTime })
+            .redirect(config.GOOGLE_CLIENT_REDIRECT_URL);
     }
 }

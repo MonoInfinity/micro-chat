@@ -8,18 +8,18 @@
  *----------------------------------------------------------------------------------------------------
  */
 
-export const config: Config = {
+export const constant: Constant = {
     authController: {
         // /google/callback
         googleUserCookieTime: 1000 * 60 * 60 * 24 * 30,
     },
 };
 
-interface Config {
-    authController: AuthControllerConfig;
+interface Constant {
+    authController: AuthControllerConstant;
 }
 
-interface AuthControllerConfig {
+interface AuthControllerConstant {
     /**
      *@description time of cookie when users login with google
      *@description  milliseconds 1h = 60 * 60 * 1000
