@@ -8,11 +8,12 @@ import { AppModule } from './app.module';
 import { monoLogger } from 'mono-utils-core';
 import { router } from './core/router';
 import { config } from './core/config';
+import { CustomLogger } from './core/utils/logger';
 
-export const NS_APP = 'app-main';
+export const NS_APP = 'app-info';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { logger: new CustomLogger() });
     router(app);
 
     await app.listen(config.PORT, () => {
@@ -22,6 +23,7 @@ async function bootstrap() {
     });
 }
 monoLogger.log(NS_APP, `---------------Configuration--------------------`);
-console.log(config);
+monoLogger.log(NS_APP, config);
+monoLogger.log(NS_APP, `-----------------------------------`);
 
 bootstrap();

@@ -11,7 +11,7 @@ export class User {
     @Column({ default: '' })
     googleId: string;
 
-    @Column({ default: new Date().toISOString().slice(0, 19).replace('T', ' ') })
+    @Column({ default: new Date() })
     createDate: Date;
 
     @Column({ default: false })

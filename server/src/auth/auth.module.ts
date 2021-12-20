@@ -14,9 +14,7 @@ import { config } from '../core/config';
         GoogleStrategy,
         {
             provide: JwtService,
-            useFactory: () => {
-                return new JwtService({ secret: config.JWT_SECRET_KEY });
-            },
+            useFactory: () => new JwtService({ secret: config.JWT_SECRET_KEY }),
         },
     ],
     exports: [AuthService],

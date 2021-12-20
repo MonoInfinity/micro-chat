@@ -1,7 +1,6 @@
 import { Injectable, PipeTransform } from '@nestjs/common';
 import { ObjectSchema, ValidationError } from 'joi';
-import { UserInputError } from 'apollo-server-express';
-
+import { StatusCodes } from 'http-status-codes';
 //---- Common
 import { apiResponse } from '../../interface/apiResponse';
 
@@ -10,9 +9,9 @@ export class JoiValidatorPipe implements PipeTransform {
     constructor(private readonly schema: ObjectSchema) {}
 
     transform(input: any) {
-        if (!input) throw apiResponse.sendError(400, { errorMessage: 'Invalid input' });
+        if (!input) throw apiResponse.sendError(StatusCodes.BAD_REQUEST, { errorMessage: 'Invalid input' });
         const { error, value } = this.schema.validate(input, { abortEarly: false });
-        if (error) throw apiResponse.sendError(400, this.mapJoiError(error));
+        if (error) throw apiResponse.sendError(StatusCodes.BAD_GATEWAY, this.mapJoiError(error));
 
         return value;
     }
